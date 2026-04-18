@@ -2,11 +2,10 @@
 
 namespace Database\Factories;
 
-use App\Models\Review;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<Review>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Review>
  */
 class ReviewFactory extends Factory
 {
@@ -19,19 +18,19 @@ class ReviewFactory extends Factory
     {
         return [
             'book_id' => null,
-            'review' => fake()->paragraph(),
+            'review' => fake()->paragraph,
             'rating' => fake()->numberBetween(1, 5),
             'created_at' => fake()->dateTimeBetween('-2 years'),
-            'updated_at' => function(array $attributes){
-                return fake()->dateTimeBetween($attributes['created_at']);
-            }
+            'updated_at' => function (array $attributes) {
+                return fake()->dateTimeBetween($attributes['created_at'], 'now');
+            },
         ];
     }
 
     public function good()
     {
         return $this->state(function (array $attributes) {
-            return[
+            return [
                 'rating' => fake()->numberBetween(4, 5)
             ];
         });
@@ -40,7 +39,7 @@ class ReviewFactory extends Factory
     public function average()
     {
         return $this->state(function (array $attributes) {
-            return[
+            return [
                 'rating' => fake()->numberBetween(2, 5)
             ];
         });
@@ -49,7 +48,7 @@ class ReviewFactory extends Factory
     public function bad()
     {
         return $this->state(function (array $attributes) {
-            return[
+            return [
                 'rating' => fake()->numberBetween(1, 3)
             ];
         });

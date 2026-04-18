@@ -2,11 +2,10 @@
 
 namespace Database\Factories;
 
-use App\Models\Book;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<Book>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Book>
  */
 class BookFactory extends Factory
 {
@@ -21,9 +20,9 @@ class BookFactory extends Factory
             'title' => fake()->sentence(3),
             'author' => fake()->name,
             'created_at' => fake()->dateTimeBetween('-2 years'),
-            'updated_at' => function(array $attributes){
-                return fake()->dateTimeBetween($attributes['created_at']);
-            }
+            'updated_at' => function (array $attributes) {
+                return fake()->dateTimeBetween($attributes['created_at'], 'now');
+            },
         ];
     }
 }
